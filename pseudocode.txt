@@ -1,0 +1,51 @@
+battleship
+layout:
+---------------
+[     title    ]
+[  turn instrx ]
+[ [][][][][][] ]
+[ [][][][][][] ]
+[ [][][][][][] ]
+[ [][][][][][] ]
+[              ]
+[ left:  left: ]
+[              ]
+[              ]
+----------------
+
+Gameplay:
+1. Player sets location of ships, in order of array.
+2. computer location of ships randomly placed 
+3. user turn, pick square to fire at, display result (hit or miss)
+4. computer turn, randomly pick square that can result in ship hit (AI logic needed) (hit or miss info displayed)
+5. hit or miss logic on future computer turns 
+6. if ship is fully hit, alert and remove ship from "left" menu
+7. if user finishes, computer gets one last turn 
+8. if computer finishes, user loses 
+9. display results, display replay value
+
+future considerations:
+- adding other AI logic for replays
+- adding soundFX
+
+
+
+constants
+* ships - 
+names: Carrier,Battleship,Destroyer,Submarine,Patrol Boat
+size: 5,4,3,3,2
+
+* map 
+10x10 grid, x/y 
+
+
+players
+ * user
+ * ai  
+
+
+coordinatesBurned: []
+coordinatesAvailable: [loop to get all the coordinates here at start]
+
+//start of Gameplay (init)
+reset board 
