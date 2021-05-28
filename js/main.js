@@ -1,4 +1,6 @@
 /*----- constants -----*/
+const xyaxis = ['xaxis', 'yaxis'];
+
 const players = {
     user: {
         ships: {
@@ -27,6 +29,15 @@ const players = {
         } 
     }
 }
+//define where ships are placed for ai (random)
+function aiShipPlacement(){
+    //for each ai ship, orientation random, check index coordinates where size can be met, pick one at random
+      for (let ship in players.ai.ships) {
+      players.ai.ships[ship].orientation = xyaxis[Math.floor(Math.random()*2)];
+      console.log(players.ai.ships[ship].orientation);
+     }
+    
+
 
 // all coordinates loaded into the available array, coordinates burned cleared
 function clearBoard(){
