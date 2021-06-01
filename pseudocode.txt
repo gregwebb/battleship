@@ -48,4 +48,8 @@ coordinatesBurned: []
 coordinatesAvailable: [loop to get all the coordinates here at start]
 
 //start of Gameplay (init)
-reset board 
+reset board - all coordinates available and none burned 
+user selects where to place ships 
+computer randomly selects where to place ships 
+
+
