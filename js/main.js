@@ -4,11 +4,11 @@ const xyaxis = ['xaxis', 'yaxis'];
 const players = {
     user: {
         ships: {
-            carrier: {name:"carrier", size: 5, coordinateIndex: "", orientation: "", sunk: false},
-            battleship: {name:"battleship", size: 4, coordinateIndex: "", orientation: "", sunk: false},
-            destroyer: {name:"destroyer", size: 3, coordinateIndex: "", orientation: "", sunk: false},
-            submarine: {name:"submarine", size: 3, coordinateIndex: "", orientation: "", sunk: false},
-            patrolBoat: {name:"patrol boat", size: 2, coordinateIndex: "", orientation: "", sunk: false}
+            carrier: {name:"carrier", size: 5, coordinates: [], orientation: "", sunk: false},
+            battleship: {name:"battleship", size: 4, coordinates: [], orientation: "", sunk: false},
+            destroyer: {name:"destroyer", size: 3, coordinates: [], orientation: "", sunk: false},
+            submarine: {name:"submarine", size: 3, coordinates: [], orientation: "", sunk: false},
+            patrolBoat: {name:"patrol boat", size: 2, coordinates: [], orientation: "", sunk: false}
         },
         board: {
             coordinatesAvailable: [],
@@ -17,11 +17,11 @@ const players = {
     },
      ai: {
         ships: {
-            carrier: {name:"carrier", size: 5, coordinateIndex: "", orientation: "", sunk: false},
-            battleship: {name:"battleship", size: 4, coordinateIndex: "", orientation: "", sunk: false},
-            destroyer: {name:"destroyer", size: 3, coordinateIndex: "", orientation: "", sunk: false},
-            submarine: {name:"submarine", size: 3, coordinateIndex: "", orientation: "", sunk: false},
-            patrolBoat: {name:"patrol boat", size: 2, coordinateIndex: "", orientation: "", sunk: false}
+            carrier: {name:"carrier", size: 5, coordinates: [], orientation: "", sunk: false},
+            battleship: {name:"battleship", size: 4, coordinates: [], orientation: "", sunk: false},
+            destroyer: {name:"destroyer", size: 3, coordinates: [], orientation: "", sunk: false},
+            submarine: {name:"submarine", size: 3, coordinates: [], orientation: "", sunk: false},
+            patrolBoat: {name:"patrol boat", size: 2, coordinates: [], orientation: "", sunk: false}
         },
         board: {
             coordinatesAvailable: [],
@@ -35,18 +35,23 @@ function aiShipPlacement(){
     //for each ai ship, orientation random, check index coordinates where size can be met, pick one at random. NE orientation >>> or ^^^
       for (let ship in players.ai.ships) {
       players.ai.ships[ship].orientation = xyaxis[Math.floor(Math.random()*2)];
-      console.log(players.ai.ships[ship].orientation);
-     
+      players.ai.ships[ship].coordinates = players.ai.board.coordinatesAvailable[Math.floor(Math.random()*(players.ai.board.coordinatesAvailable.length-1))];
+           
+        xValue = players.ai.ships[ship].coordinates.x;
+        yValue = players.ai.ships[ship].coordinates.y;
+        shipArray = [];
+        shipArray.push(new coordinate(xValue,yValue));
+        const find = JSON.stringify(players.ai.board.coordinatesAvailable).includes(JSON.stringify(shipArray[0]));
+        console.log(find);
+        
      /// need to add code here to identify index coordinate and pick at random
      // if xaxis, random coordinate then check if .size is available for example x: 1, y:1 we would need to check x:1-5 at y:1
-        for (let coordinate in players.ai.boards.coordinatesAvailable) {
 
-        }
 
      // if yaxis, random coordinate then check if .size is available for example x: 1, y:1 we would need to check y:1-5 at x:1
      // if ship is placed, need to remove from shipPlacementCoordinates so that another ship cant use same coordinates 
     }
-    clearBoard()
+    
 
 }
 // all coordinates loaded into the available array, coordinates burned cleared
