@@ -1,7 +1,10 @@
+header {
+    text-align: center;
+}
 
 body {
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 410px;
+    max-width: 410px;
 }
 .flex-container {
     display: flex;
@@ -10,10 +13,26 @@ body {
   }
   
   .flex-container > div {
-    background-color: #f1f1f1;
-    width: 40px;
-    margin: 5px;
+    background-color:#0077be;
+    border-style: dotted;
+    width: 35px;
     text-align: center;
-    line-height: 35px;
+    line-height: 30px;
+    font-size: 20px;
+  }
+
+  div > .fired_at {
+    background-color: grey;
+    width: 35px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+  }
+
+  div > .hit {
+    background-color:red;
+    width: 35px;
+    text-align: center;
+    line-height: 30px;
     font-size: 20px;
   }

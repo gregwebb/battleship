@@ -9,107 +9,112 @@
     <script defer src="js/main.js"></script>
 </head>
 <body>
+    <header>
+        <button id="start_button">Click here to start the game.</button> 
+        </br></br>
+        <div><h4 id="message">Welcome to Battleship.</h3></div>
+    </header>
     <div class="flex-container">
-        <div id="test">1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>  
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>  
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
+        <div id="00" class="available">*</div>
+        <div id="10" class="available">*</div>
+        <div id="20" class="available">*</div>
+        <div id="30" class="available">*</div>
+        <div id="40" class="available">*</div>
+        <div id="50" class="available">*</div>
+        <div id="60" class="available">*</div>
+        <div id="70" class="available">*</div>
+        <div id="80" class="available">*</div>
+        <div id="90" class="available">*</div>
+        <div id="01" class="available">*</div>
+        <div id="11" class="available">*</div>
+        <div id="21" class="available">*</div>
+        <div id="31" class="available">*</div>
+        <div id="41" class="available">*</div>
+        <div id="51" class="available">*</div>
+        <div id="61" class="available">*</div>
+        <div id="71" class="available">*</div>
+        <div id="81" class="available">*</div>
+        <div id="91" class="available">*</div>
+        <div id="02" class="available">*</div>
+        <div id="12" class="available">*</div>
+        <div id="22" class="available">*</div>
+        <div id="32" class="available">*</div>
+        <div id="42" class="available">*</div>
+        <div id="52" class="available">*</div>
+        <div id="62" class="available">*</div>
+        <div id="72" class="available">*</div>
+        <div id="82" class="available">*</div>
+        <div id="92" class="available">*</div>
+        <div id="03" class="available">*</div>
+        <div id="13" class="available">*</div>
+        <div id="23" class="available">*</div>
+        <div id="33" class="available">*</div>
+        <div id="43" class="available">*</div>
+        <div id="53" class="available">*</div>
+        <div id="63" class="available">*</div>
+        <div id="73" class="available">*</div>
+        <div id="83" class="available">*</div>
+        <div id="93" class="available">*</div>
+        <div id="04" class="available">*</div>
+        <div id="14" class="available">*</div>
+        <div id="24" class="available">*</div>
+        <div id="34" class="available">*</div>
+        <div id="44" class="available">*</div>
+        <div id="54" class="available">*</div>
+        <div id="64" class="available">*</div>
+        <div id="74" class="available">*</div>
+        <div id="84" class="available">*</div>
+        <div id="94" class="available">*</div>
+        <div id="05" class="available">*</div>
+        <div id="15" class="available">*</div>
+        <div id="25" class="available">*</div>
+        <div id="35" class="available">*</div>
+        <div id="45" class="available">*</div>
+        <div id="55" class="available">*</div>
+        <div id="65" class="available">*</div>
+        <div id="75" class="available">*</div>
+        <div id="85" class="available">*</div>
+        <div id="95" class="available">*</div>
+        <div id="06" class="available">*</div>
+        <div id="16" class="available">*</div>
+        <div id="26" class="available">*</div>
+        <div id="36" class="available">*</div>
+        <div id="46" class="available">*</div>
+        <div id="56" class="available">*</div>
+        <div id="66" class="available">*</div>
+        <div id="76" class="available">*</div>
+        <div id="86" class="available">*</div>
+        <div id="96" class="available">*</div>
+        <div id="07" class="available">*</div>
+        <div id="17" class="available">*</div>
+        <div id="27" class="available">*</div>
+        <div id="37" class="available">*</div>
+        <div id="47" class="available">*</div>
+        <div id="57" class="available">*</div>
+        <div id="67" class="available">*</div>
+        <div id="77" class="available">*</div>
+        <div id="87" class="available">*</div>
+        <div id="97" class="available">*</div>
+        <div id="08" class="available">*</div>
+        <div id="18" class="available">*</div>
+        <div id="28" class="available">*</div>
+        <div id="38" class="available">*</div>
+        <div id="48" class="available">*</div>
+        <div id="58" class="available">*</div>
+        <div id="68" class="available">*</div>
+        <div id="78" class="available">*</div>
+        <div id="88" class="available">*</div>
+        <div id="98" class="available">*</div>
+        <div id="09" class="available">*</div>
+        <div id="19" class="available">*</div>
+        <div id="29" class="available">*</div>
+        <div id="39" class="available">*</div>
+        <div id="49" class="available">*</div>
+        <div id="59" class="available">*</div>
+        <div id="69" class="available">*</div>
+        <div id="79" class="available">*</div>
+        <div id="89" class="available">*</div>
+        <div id="99" class="available">*</div>
       </div>
 </body>
 </html>
