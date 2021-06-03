@@ -15,7 +15,7 @@ Getting Started:
 Game is really simple to play, the coordinates for firing at are all clickable. Game will update in realtime and alert of major changes such as a hit,sunken ship, or a winner.
 
 Game can be played here:
-https://gregwebb.github.io/battleship/index.html
+https://gregwebb.github.io/battleship/
 
 Future Enhancements/Features:
 - Improved AI Logic (Smarter targeting for ships)
