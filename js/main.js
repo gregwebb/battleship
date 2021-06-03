@@ -1,5 +1,6 @@
 const xyaxis = ['xaxis', 'yaxis'];
 const message = document.getElementById('message');
+const messageAI = document.getElementById('message_ai');
 const players = {
     user: {
         ships: {
@@ -42,6 +43,9 @@ function playerShipPlacement(){
                 for (i=0;i<players.user.ships[ship].size;i++) {
                     shipArray.push(new coordinate(xValue+i,yValue));
                     if (!JSON.stringify(players.user.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
+                        if (i === players.user.ships[ship].size-1) {
+                            players.user.board.coordinatesBurned.push(shipArray)
+                            }
                     }   
                     else {
                       playerShipPlacement();
@@ -60,7 +64,7 @@ function playerShipPlacement(){
                 for (i=0;i<players.user.ships[ship].size;i++) {
                     shipArray.push(new coordinate(xValue,yValue+i));
                     if (!JSON.stringify(players.user.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
-                        if (i === players.user.ships[ship].size) {
+                        if (i === players.user.ships[ship].size-1) {
                         players.user.board.coordinatesBurned.push(shipArray)
                         }
                     }   
@@ -75,8 +79,10 @@ function playerShipPlacement(){
     }
 }
 
+players.user.board.targetArray.push(players.user.board.coordinatesAvailable[Math.floor(Math.random()*players.user.board.coordinatesAvailable.length)]);
+removeCoordinate = players.user.board.coordinatesAvailable.indexOf(players.user.board.targetArray[0]);
+players.user.board.coordinatesAvailable.splice(removeCoordinate, 1);
 
-//define where ships are placed for ai (random)
 function aiShipPlacement(){
     for (let ship in players.ai.ships) {
         if (players.ai.ships[ship].coordinates.length === 0) {
@@ -88,7 +94,7 @@ function aiShipPlacement(){
                 for (i=0;i<players.ai.ships[ship].size;i++) {
                     shipArray.push(new coordinate(xValue+i,yValue));
                     if (!JSON.stringify(players.ai.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
-                        if (i === players.ai.ships[ship].size) {
+                        if (i === players.ai.ships[ship].size-1) {
                             players.ai.board.coordinatesBurned.push(shipArray);
                             }
                     }   
@@ -109,7 +115,7 @@ function aiShipPlacement(){
                 for (i=0;i<players.ai.ships[ship].size;i++) {
                     shipArray.push(new coordinate(xValue,yValue+i));
                     if (!JSON.stringify(players.ai.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
-                        if (i === players.ai.ships[ship].size) {
+                        if (i === players.ai.ships[ship].size-1) {
                         players.ai.board.coordinatesBurned.push(shipArray);
                         }
                     }   
@@ -124,8 +130,15 @@ function aiShipPlacement(){
     }
 }
     
-// all coordinates loaded into the available array, coordinates burned cleared
 function clearBoard(){
+    let tiles = document.querySelectorAll('.fired_at');
+    for (var i=0; i < tiles.length; i++) {
+    tiles[i].setAttribute("class", "available");
+}
+tiles = document.querySelectorAll('.hit');
+for (var i=0; i < tiles.length; i++) {
+tiles[i].setAttribute("class", "available");
+}
     for (let player in players) {
       players[player].board.coordinatesBurned = [];
       players[player].board.coordinatesAvailable = new Array();
@@ -136,21 +149,21 @@ function clearBoard(){
       }
     }
 }
-// coordinate setup
+
 function coordinate(x,y){
     this.x = x;
     this.y = y;
 }
 
-//start/restart logic - board is cleared for a new game
 function init(){
     clearBoard();
     resetShips();
     aiShipPlacement();
+    playerShipPlacement();
     clearBoard();
     console.log("this was started");
-    playerShipPlacement();
-    message.innerHTML = "Alright! Let's get started. Please click the squares where you would like to place the Carrier."
+    
+    message.innerHTML = "Alright! Let's get started. Please click the square where you would like to fire first."
 }
 
 function resetShips(){
@@ -160,21 +173,20 @@ function resetShips(){
         ship.hitCount = "0"; 
         ship.sunk = false;
     }
+    for (let ship in players.user.ships) {
+        ship.coordinates = [];
+        ship.orientation = "";
+        ship.hitCount = "0"; 
+        ship.sunk = false;
+    }
 }
 
 
-//turn logic if computer hits ship - computer should target surrounding coordinates and continue until ship is sunk
-function hitShipTurn(){
-    checkSunk();
-}
 
-//checks if a remaining ship has been sunk
-function checkSunk(){
-    shipSunk()
-}
+
 
 //alert that a ship has been sunk
-function shipSunk(){
+function hitShip(){
     for (let ship in players.ai.ships) {
         for (i=0; i < players.ai.ships[ship].size; i++) {
             if (JSON.stringify(players.ai.board.targetArray).includes(JSON.stringify(players.ai.ships[ship].coordinates[i]))) {
@@ -184,6 +196,23 @@ function shipSunk(){
             message.innerHTML = `The AI's ${players.ai.ships[ship].name} has been sunk!!!`;
                 players.ai.ships[ship].sunk = true;
                 players.ai.ships[ship].hitCount = 0;
+            }
+        } 
+        }
+    }
+    
+}
+
+function aiHitShip(){
+    for (let ship in players.user.ships) {
+        for (i=0; i < players.user.ships[ship].size; i++) {
+            if (JSON.stringify(players.user.board.targetArray).includes(JSON.stringify(players.user.ships[ship].coordinates[i]))) {
+                players.user.ships[ship].hitCount = ++players.user.ships[ship].hitCount;
+                messageAI.innerHTML = `Your ${players.user.ships[ship].name} has been hit!!!`;
+        if (players.user.ships[ship].hitCount === players.user.ships[ship].size) {
+            messageAI.innerHTML = `Your ${players.user.ships[ship].name} has been sunk!!!`;
+                players.user.ships[ship].sunk = true;
+                players.user.ships[ship].hitCount = 0;
             }
         } 
         }
@@ -202,22 +231,39 @@ document.querySelector('button').addEventListener('click', init);
 
 
 function takeTurn(fire){
-players.ai.board.targetArray = [];
-fire.target.setAttribute("class", "fired_at");
-coordinatesFiredAt = Array.from(fire.target.id.toString()).map(Number);
-players.ai.board.targetArray.push(new coordinate(coordinatesFiredAt[0],coordinatesFiredAt[1]));
-console.log(players.ai.board.targetArray);
-players.ai.board.coordinatesBurned.push(players.ai.board.targetArray[0]);
-for (let ship in players.ai.ships) {
-if (JSON.stringify(players.ai.ships[ship].coordinates).includes(JSON.stringify(players.ai.board.targetArray[0]))) {
+    players.ai.board.targetArray = [];
+    fire.target.setAttribute("class", "fired_at");
+    coordinatesFiredAt = Array.from(fire.target.id.toString()).map(Number);
+    players.ai.board.targetArray.push(new coordinate(coordinatesFiredAt[0],coordinatesFiredAt[1]));
+    players.ai.board.coordinatesBurned.push(players.ai.board.targetArray[0]);
+    console.log(players.ai.board.targetArray[0]);
+    for (let ship in players.ai.ships) {
+        if (JSON.stringify(players.ai.ships[ship].coordinates).includes(JSON.stringify(players.ai.board.targetArray[0]))) {
     fire.target.setAttribute("class", "hit");
-    hitShipTurn();
-}
+    hitShip();
+
+} 
 
 }
+aiTurn();
+}
 
-
-
-//clickedSquare.setAttribute("style", "background-color: red;");
-//console.log(clickedSquare);
+function aiTurn(){
+    players.user.board.targetArray = [];
+    players.user.board.targetArray.push(players.user.board.coordinatesAvailable[Math.floor(Math.random()*players.user.board.coordinatesAvailable.length)]);
+    removeCoordinate = players.user.board.coordinatesAvailable.indexOf(players.user.board.targetArray[0]);
+    players.user.board.coordinatesAvailable.splice(removeCoordinate, 1);
+    console.log(players.user.board.targetArray);
+    console.log(players.user.board.coordinatesAvailable.length);
+    let aiTargetArray = JSON.stringify(players.user.board.targetArray[0]).split('');
+    let aiTarget = `ai${aiTargetArray[5]}${aiTargetArray[11]}`;
+    let aiTargetGridElement = document.getElementById(aiTarget);
+    console.log(aiTarget);
+    aiTargetGridElement.setAttribute("class", "fired_at_ai");
+    for (let ship in players.user.ships) {
+        if (JSON.stringify(players.user.ships[ship].coordinates).includes(JSON.stringify(players.user.board.targetArray[0]))) {
+            aiTargetGridElement.setAttribute("class", "hit_ai");
+    aiHitShip();
+        }
+}
 }
