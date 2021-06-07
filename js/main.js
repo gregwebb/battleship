@@ -279,12 +279,18 @@ function resetShips() {
     players.ai.ships[ship].orientation = "";
     players.ai.ships[ship].hitCount = "0";
     players.ai.ships[ship].sunk = false;
+    let resetShip = `ai${players.ai.ships[ship].name}`;
+    let pClass = document.getElementById(resetShip);
+    pClass.innerHTML = players.ai.ships[ship].name;
   }
   for (let ship in players.user.ships) {
     players.user.ships[ship].coordinates = [];
     players.user.ships[ship].orientation = "";
     players.user.ships[ship].hitCount = "0";
     players.user.ships[ship].sunk = false;
+    let resetShip = players.user.ships[ship].name;
+    let pClass = document.getElementById(resetShip);
+    pClass.innerHTML = players.user.ships[ship].name;
   }
 }
 
