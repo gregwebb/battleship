@@ -1,6 +1,7 @@
 const xyaxis = ["xaxis", "yaxis"];
 const message = document.getElementById("message");
 const messageTwo = document.getElementById("message_two");
+const messageThree = document.getElementById("message_three");
 const startButton = document.getElementById("start_button");
 const players = {
   user: {
@@ -255,12 +256,18 @@ function coordinate(x, y) {
   this.y = y;
 }
 
+function resetWinner() {
+  aiWon = false;
+  userWon = false;
+}
+
 function init() {
   clearBoard();
   resetShips();
   aiShipPlacement();
   playerShipPlacement();
   clearBoard();
+  resetWinner();
   message.innerHTML = "Click a square to fire!";
   messageTwo.innerHTML = "Sink some ships!";
   startButton.innerHTML = "Restart Game";
@@ -282,11 +289,17 @@ function resetShips() {
 }
 
 function userWins() {
-  messageTwo.innerHTML = "You won!";
+  if (aiWon === false){
+  messageThree.innerHTML = "You won!";
+  }
+  userWon = true;
 }
 
 function aiWins() {
-  messageTwo.innerHTML = "AI wins!";
+  if (userWon === false){
+  messageThree.innerHTML = "AI wins!";
+  }
+  aiWon = true;
 }
 
 function checkWin() {
