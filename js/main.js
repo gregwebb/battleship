@@ -231,6 +231,14 @@ function clearBoard() {
   for (var i = 0; i < tiles.length; i++) {
     tiles[i].setAttribute("class", "available");
   }
+  let tilesAi = document.querySelectorAll(".fired_at_ai");
+  for (var i = 0; i < tilesAi.length; i++) {
+    tilesAi[i].setAttribute("class", "");
+  }
+  tilesAi = document.querySelectorAll(".hit_ai");
+  for (var i = 0; i < tilesAi.length; i++) {
+    tilesAi[i].setAttribute("class", "");
+  }
   for (let player in players) {
     players[player].board.coordinatesBurned = [];
     players[player].board.coordinatesAvailable = new Array();
@@ -260,16 +268,16 @@ function init() {
 
 function resetShips() {
   for (let ship in players.ai.ships) {
-    ship.coordinates = [];
-    ship.orientation = "";
-    ship.hitCount = "0";
-    ship.sunk = false;
+    players.ai.ships[ship].coordinates = [];
+    players.ai.ships[ship].orientation = "";
+    players.ai.ships[ship].hitCount = "0";
+    players.ai.ships[ship].sunk = false;
   }
   for (let ship in players.user.ships) {
-    ship.coordinates = [];
-    ship.orientation = "";
-    ship.hitCount = "0";
-    ship.sunk = false;
+    players.user.ships[ship].coordinates = [];
+    players.user.ships[ship].orientation = "";
+    players.user.ships[ship].hitCount = "0";
+    players.user.ships[ship].sunk = false;
   }
 }
 
@@ -353,7 +361,7 @@ availableTargets.forEach(function (el) {
   el.addEventListener("click", takeTurn);
 });
 
-const startGamee = document
+const startGame = document
   .querySelector("button")
   .addEventListener("click", init);
 
