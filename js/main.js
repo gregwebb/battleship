@@ -1,6 +1,6 @@
 const xyaxis = ['xaxis', 'yaxis'];
 const message = document.getElementById('message');
-const messageAI = document.getElementById('message_ai');
+const messageTwo = document.getElementById('message_two');
 const players = {
     user: {
         ships: {
@@ -44,17 +44,16 @@ function playerShipPlacement(){
                     shipArray.push(new coordinate(xValue+i,yValue));
                     if (!JSON.stringify(players.user.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
                         if (i === players.user.ships[ship].size-1) {
-                            players.user.board.coordinatesBurned.push(shipArray);
+                            for (i=0;i<players.user.ships[ship].size;i++) {
+                                players.user.board.coordinatesBurned.push(shipArray[i]);
+                            }
                             players.user.ships[ship].coordinates = shipArray;
                             }
                     }   
                 }
-                players.user.ships[ship].coordinates = shipArray;
-                for (i=0;i<players.user.ships[ship].size;i++) {
-                    players.user.board.coordinatesBurned.push(shipArray[i]);
-                }
+                playerShipPlacement();
             }
-            else 
+            if (players.user.ships[ship].orientation === "yaxis") {
             {
                 let yValue = Math.floor(Math.random()*(11-players.user.ships[ship].size));
                 let xValue = Math.floor(Math.random()*10);
@@ -63,16 +62,18 @@ function playerShipPlacement(){
                     shipArray.push(new coordinate(xValue,yValue+i));
                     if (!JSON.stringify(players.user.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
                         if (i === players.user.ships[ship].size-1) {
-                        players.user.board.coordinatesBurned.push(shipArray);
+                            for (i=0;i<players.user.ships[ship].size;i++) {
+                                players.user.board.coordinatesBurned.push(shipArray[i]);
+                            }
                         players.user.ships[ship].coordinates = shipArray;
                         }
                     }  
                 }
-                
                 playerShipPlacement();
             }
         }
     }
+}
 }
 
 function aiCheckCoordinates(){
@@ -105,17 +106,17 @@ function aiCheckCoordinates(){
                         shipArray.push(new coordinate(xValue+i,yValue));
                         if (!JSON.stringify(players.ai.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
                             if (i === players.ai.ships[ship].size-1) {
-                                players.ai.board.coordinatesBurned.push(shipArray);
+                                for (i=0;i<players.ai.ships[ship].size;i++) {
+                                    players.ai.board.coordinatesBurned.push(shipArray[i]);
+                                }
                                 players.ai.ships[ship].coordinates = shipArray;
                                 }
                         }   
                     }
-                    players.ai.ships[ship].coordinates = shipArray;
-                    for (i=0;i<players.ai.ships[ship].size;i++) {
-                        players.ai.board.coordinatesBurned.push(shipArray[i]);
-                    }
+
+                    aiShipPlacement();
                 }
-                else 
+                if (players.ai.ships[ship].orientation === "yaxis") {
                 {
                     let yValue = Math.floor(Math.random()*(11-players.ai.ships[ship].size));
                     let xValue = Math.floor(Math.random()*10);
@@ -124,17 +125,19 @@ function aiCheckCoordinates(){
                         shipArray.push(new coordinate(xValue,yValue+i));
                         if (!JSON.stringify(players.ai.board.coordinatesBurned).includes(JSON.stringify(shipArray[i]))) {
                             if (i === players.ai.ships[ship].size-1) {
-                            players.ai.board.coordinatesBurned.push(shipArray);
+                                for (i=0;i<players.ai.ships[ship].size;i++) {
+                                    players.ai.board.coordinatesBurned.push(shipArray[i]);
+                                }
                             players.ai.ships[ship].coordinates = shipArray;
                             }
                         }  
                     }
-                    
                     aiShipPlacement();
                 }
             }
         }
     }
+}
     
 function clearBoard(){
     let tiles = document.querySelectorAll('.fired_at');
@@ -186,11 +189,11 @@ function resetShips(){
 }
 
 function userWins(){
-    messageAI.innerHTML = "You won!"
+    messageTwo.innerHTML = "You won!"
 }
 
 function aiWins(){
-    messageAI.innerHTML = "AI wins!"
+    messageTwo.innerHTML = "AI wins!"
 }
 
 function checkWin(){
@@ -235,12 +238,12 @@ function aiHitShip(){
         for (i=0; i < players.user.ships[ship].size; i++) {
             if (JSON.stringify(players.user.board.targetArray).includes(JSON.stringify(players.user.ships[ship].coordinates[i]))) {
                 players.user.ships[ship].hitCount++;
-                messageAI.innerHTML = `Your ${players.user.ships[ship].name} has been hit!!!`;
+                messageTwo.innerHTML = `Your ${players.user.ships[ship].name} has been hit!!!`;
 
         } 
         }
         if (players.user.ships[ship].hitCount === players.user.ships[ship].size) {
-            messageAI.innerHTML = `Your ${players.user.ships[ship].name} has been sunk!!!`;
+            messageTwo.innerHTML = `Your ${players.user.ships[ship].name} has been sunk!!!`;
             players.user.ships[ship].sunk = true;
             let sunkShip = players.user.ships[ship].name;
             let pClass = document.getElementById(sunkShip);
